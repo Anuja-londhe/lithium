@@ -1,4 +1,5 @@
 const express = require('express');
+const _ = require('lodash');
 const router = express.Router();
 
 router.get('/students/:name', function(req, res) {
@@ -10,6 +11,89 @@ router.get('/students/:name', function(req, res) {
 router.get("/random" , function(req, res) {
     res.send("hi there")
 })
+
+
+
+//example 1)
+router.get("/sol1", function (req, res) {
+
+
+    let arr= [1,2,3,5,6,7];
+    let n=arr.length+1;
+    let abc=((n*(n+1))/2);
+    
+    const sum = arr.reduce((a, b) => {  
+          return a +b;
+        });
+    
+        let missingNumber=abc-sum;
+    console.log(missingNumber);
+    res.send( { data: missingNumber } );
+    });
+//example2)
+    router.get('/sol2', (req, res) => {
+        const arr = [33, 34, 35, 37, 38];
+        let missingNumber = 0;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] + 1 !== arr[i + 1]) {
+                missingNumber = arr[i] + 1;
+                break;
+            }
+        }
+        console.log(missingNumber)
+        res.send({ data: missingNumber})
+    });
+
+    //example3)
+  let players = [ {
+        "name": "manish",
+        "dob": "1/1/1995",
+        "gender": "male",
+        "city": "jalandhar",
+        "sports": [
+        "swimming"
+        ]
+        },
+        {
+            "name": "gopal",
+            "dob": "1/09/1995",
+            "gender": "male",
+            "city": "delhi",
+            "sports": [
+                "soccer"
+            ],
+        },
+        {
+            "name": "lokesh",
+            "dob": "1/1/1990",
+            "gender": "male",
+            "city": "mumbai",
+            "sports": [
+                "soccer"
+            ],
+        },
+    ]
+    router.post('/players',function(req,res){
+        const body = req.body
+        const player =players.find(x=>x.name===body.name) 
+        if(player){
+            res.send({massege:"player already exist"})
+        }else{
+            players.push(body)
+            res.send(players)
+        }
+        }
+    )
+    
+
+ 
+
+        
+
+     
+
+
+
 
 
 router.get("/test-api" , function(req, res) {
